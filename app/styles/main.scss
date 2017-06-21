@@ -2,9 +2,7 @@ $icon-font-path: "../../bower_components/bootstrap/fonts/";
 $fa-font-path: "../../bower_components/font-awesome/fonts";
 // bower:scss
 @import "select2/src/scss/core.scss";
-@import "font-awesome/scss/font-awesome.scss";
 @import "select2-bootstrap-theme/src/build.scss";
-@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
 .browsehappy {
@@ -116,4 +114,8 @@ body {
 
 .ng-table th {
   text-align: none;
+}
+
+#controls-pagination {
+  padding-top: 1em;
 }
