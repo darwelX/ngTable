@@ -2,7 +2,7 @@
   "name": "backendfastmoney",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.6.1",
+    "angular": "^1.6.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     "angular-animate": "^1.6.1",
@@ -47,6 +47,25 @@
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]
-    }
+    },
+    "bootstrap-sass": {
+      "main": [
+        "fonts/bootstrap/glyphicons-halflings-regular.eot",
+        "fonts/bootstrap/glyphicons-halflings-regular.svg",
+        "fonts/bootstrap/glyphicons-halflings-regular.ttf",
+        "fonts/bootstrap/glyphicons-halflings-regular.woff",
+        "fonts/bootstrap/glyphicons-halflings-regular.woff2"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2"
+      ]
+    }    
   }
 }
