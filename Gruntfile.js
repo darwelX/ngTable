@@ -420,13 +420,6 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, 
-        {
-          expand: true,
-          cwd: '.',
-          src: ['bower_components/font-awesome/fonts/*','bower_components/bootstrap/fonts/*'],
-          dest: '<%= yeoman.dist %>',
-          filter: 'isFile'
         },
         {
           expand: true,
