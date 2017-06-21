@@ -113,7 +113,7 @@
       </table>
 
       <script type="text/ng-template" id="pagination">
-        <div class="ng-cloak ng-table-pager" ng-if="params.data.length">
+        <div id="controls-pagination" class="ng-cloak ng-table-pager" ng-if="params.data.length">
           <span>
               Mostrando Filas de <strong>{{ ((params.page()-1)*params.count())+1 }}</strong>
                 a <strong>{{ (params.page()*params.count()) > params.settings().total ? params.settings().total : params.page()*params.count() }}</strong>
