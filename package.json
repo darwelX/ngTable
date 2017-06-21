@@ -42,6 +42,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "grunt serve"
+    "start": "grunt serve",
+    "build": "grunt build --force",
+    "clean": "grunt clean"
   }
 }
