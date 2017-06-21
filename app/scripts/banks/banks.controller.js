@@ -9,24 +9,24 @@ angular.module('backendfastmoneyApp').controller('BanksCtrl',
   });  
   angular.element('#grupo').triggerHandler('click');
   self.nuevo = function(){
-    $location.path('/newbank')
+    $location.path('/newbank');
   }
 
-  banksService.getBanksList().then(function (_data){
-    data = _data.data;
-    originalData = angular.copy(data);
-    let total = data.length;
-    let cantidadDeGrupos = total / 1;
-    let cantidades = [];
-    for(let i = 0; i < total; i++){
-      let size = 1 * (i+1);
+  banksService.getBanksList().then(function (response){
+    var bancos = {};
+    bancos = response.data;
+    originalData = angular.copy(bancos);
+    const sizeBanks = bancos.length;
+    var cantidades = [];
+    for(var i = 0; i < sizeBanks; i++){
+      var size = 1 * (i+1);
       cantidades.push(size);
     }
     self.tableParams = new NgTableParams({ 
         pages: 1, count: 1, group: "country"
       }, 
       { 
-        counts: cantidades,  dataset: data
+        counts: cantidades,  dataset: bancos
       });
 
     self.aplicarBusquedaGlobal = aplicarBusquedaGlobal;
@@ -36,10 +36,11 @@ angular.module('backendfastmoneyApp').controller('BanksCtrl',
       if (self.isInvertedSearch){
         term = "!" + term;
       }
-      console.log(term)
       self.tableParams.filter({ $: term }); 
     }     
-  });
+  }).catch(function (response) {
+                console.log(response);
+            });
 
     self.cancel = cancel;
     self.del = del;
