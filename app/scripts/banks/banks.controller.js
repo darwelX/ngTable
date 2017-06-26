@@ -14,7 +14,7 @@ angular.module('backendfastmoneyApp').controller('BanksCtrl',
 
   banksService.getBanksList().then(function (response){
     var bancos = {};
-    bancos = response.data;
+    bancos = response.data.data;
     originalData = angular.copy(bancos);
     const sizeBanks = bancos.length;
     var cantidades = [];
@@ -45,7 +45,10 @@ angular.module('backendfastmoneyApp').controller('BanksCtrl',
     self.cancel = cancel;
     self.del = del;
     self.save = save;
-
+    self.add = add;
+    self.cancelChanges= cancelChanges;
+    self.saveChanges = saveChanges;
+    self.hasChanges = hasChanges;
     //////////
 
     function cancel(row, rowForm) {
@@ -78,4 +81,56 @@ angular.module('backendfastmoneyApp').controller('BanksCtrl',
       var originalRow = resetRow(row, rowForm);
       angular.extend(originalRow, row);
     }
+
+    function add() {
+      self.isEditing = true;
+      self.isAdding = true;
+      self.tableParams.settings().dataset.unshift({
+        isEditing: true,
+        isAdding: true,
+        country: "",
+        name: null,
+        account: null
+      });
+      // we need to ensure the user sees the new row we've just added.
+      // it seems a poor but reliable choice to remove sorting and move them to the first page
+      // where we know that our new item was added to
+      self.tableParams.sorting({});
+      self.tableParams.group('');
+      self.tableParams.page(1);
+      self.tableParams.reload();
+    }  
+
+    function cancelChanges() {
+      resetTableStatus();
+      var currentPage = self.tableParams.page();
+      self.tableParams.settings({
+        dataset: angular.copy(originalData)
+      });
+      // keep the user on the current page when we can
+      if (!self.isAdding) {
+        self.tableParams.page(currentPage);
+      }
+    }
+
+    function resetTableStatus() {
+      self.isEditing = false;
+      self.isAdding = false;
+      self.deleteCount = 0;
+      self.tableParams.group('country');
+      self.tableTracker.reset();
+      self.tableForm.$setPristine();
+    }  
+
+    function saveChanges() {
+      resetTableStatus();
+      var currentPage = self.tableParams.page();
+      self.tableParams.settings().dataset[0].isEditing =  false;
+      self.tableParams.settings().dataset[0].isAdding =  false;
+      originalData = angular.copy(self.tableParams.settings().dataset);
+    }
+
+    function hasChanges() {
+      return self.tableForm.$dirty || self.deleteCount > 0
+    }            
 }]);
