@@ -11,7 +11,7 @@ function banksService($http,$q) {
       var random_number = Math.floor(Math.random()*10101010101)
       this.request = {
         method: 'GET',
-        url: ' http://localhost:3000/data?random='+random_number,
+        url: 'scripts/data.json',
         headers: {
           'Content-Type': 'application/json',
           'Acces-Control-Allow-Origin': '*',
@@ -21,10 +21,12 @@ function banksService($http,$q) {
       var deferred = $q.defer();     
       return $http(this.request).then(
             function(response){
+                console.log(response);
                 deferred.resolve(response);
                 return deferred.promise;
             },
             function(response){
+                console.log(response);
                 deferred.reject(response);
                 return deferred.promise;
             }
