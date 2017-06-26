@@ -25,7 +25,7 @@
                 {{vm.size=(banks.value.length==2)?20:10; vm.size2=(banks.value.length!=2)?20:8; vm.size3=(banks.value.length==2)?10:5}}</p>
             </a>
           </td>
-        </tr>            
+        </tr>         
         <tr ng-hide="banks.$hideRows" ng-form="rowForm" id="form-small" ng-repeat="bank in banks.data" ng-repeat-end demo-tracked-table-row="bank">
             <td data-title="'Pais'" sortable="'country'" ng-switch="bank.isEditing" ng-form="country" ng-class="country.$dirty ? 'has-warning' : ''" demo-tracked-table-cell groupable="'country'" ng-if="false">
                 <span ng-switch-default class="editable-text">{{bank.country}}</span>
@@ -94,7 +94,7 @@
                 </div>
             </td>
             <td colspan="2">
-              <div class="btn-group-vertical">
+              <div class="btn-group-vertical" ng-if="!vm.isAdding">
                   <div class="btn-group" ng-if="!bank.isEditing">
                     <button class="btn btn-primary btn-sm" ng-click="bank.isEditing = true"><span class="fa fa-pencil"></span></button>
                   </div>
@@ -148,7 +148,7 @@
 
       <script type="text/ng-template" id="customGroupRow.html">
         <tr ng-if="params.hasGroup()" ng-show="$groupRow.show" class="ng-table-group-header">
-          <th colspan="{{getVisibleColumns().length}}">
+          <th colspan="{{getVisibleColumns().length - 3}}">
             <ul class="nav nav-pills pull-left">
               <li role="presentation" ng-repeat="group in getGroupables()" ng-class="isSelectedGroup(group) ? 'active' : ''">
                 <a href="" ng-click="groupBy(group)" id="{{getGroupTitle(group)}}" count-clicks>
@@ -171,12 +171,18 @@
             </form>
  
           </th>
-          <th>
+          <th colspan="3">
             <div class="btn-group pull-right">
-              <a href="" ng-click="vm.nuevo()" class="btn btn-primary">
+              <button class="btn btn-primary" ng-if="vm.isEditing" ng-click="vm.cancelChanges()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <button class="btn btn-primary" ng-if="vm.isEditing" ng-disabled="!vm.hasChanges() || vm.tableTracker.$invalid" ng-click="vm.saveChanges()">
+                <span class="glyphicon glyphicon-ok"></span>
+              </button>
+              <button class="btn btn-primary" ng-click="vm.add()">
                 <span class="glyphicon glyphicon-plus"></span>
-              </a>
-            </div>
+              </button>
+            </div> 
           </th>
         </tr>
       </script>  
